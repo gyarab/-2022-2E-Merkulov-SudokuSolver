@@ -1,1 +1,1 @@
-# -2022-2E-Merkulov-SudokuSolver
+# 2022-2E-Merkulov-SudokuSolver
