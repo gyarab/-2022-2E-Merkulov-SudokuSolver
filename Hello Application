@@ -60,7 +60,8 @@ public class HelloApplication extends Application {
 
 
         Scene scene = new Scene(grid,425, 400);
-
+        
+        stage.setResizable(false);
         stage.setTitle("Sudoku Solver");
         stage.setScene(scene);
         stage.show();
