@@ -15,6 +15,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     //udelam si textove pole 9x9
     TextField[][] textField = new TextField[9][9];
+    Label result = new Label();
     @Override
     public void start(Stage stage) throws IOException {
         //vytvorim si Gridpane
@@ -35,6 +36,11 @@ public class HelloApplication extends Application {
             }
         }
 
+        HBox hbox = new HBox(10);
+        hbox.getChildren().add(result);
+        hbox.setAlignment(Pos.BOTTOM_CENTER);
+        grid.add(hbox,0, 9, 9, 1);
+
         //tlacitko na mazani cisel
         Button clearButton = new Button("Clear");
         VBox vbox1 = new VBox(10);
@@ -51,11 +57,7 @@ public class HelloApplication extends Application {
         grid.add(vbox2,9, 4, 6, 1);
         solveButton.setOnAction(e -> solveBoard());
 
-        Label result = new Label("oss");
-        HBox hbox = new HBox(10);
-        hbox.getChildren().add(result);
-        hbox.setAlignment(Pos.BOTTOM_CENTER);
-        grid.add(hbox,0, 9, 9, 1);
+
 
         Scene scene = new Scene(grid,425, 400);
 
@@ -88,6 +90,7 @@ public class HelloApplication extends Application {
 
             if(ss.generate() == false) {
                 System.out.println("Can not be solved");
+                result.setText("Can not be solved");
                 for(int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
                         if(poleKUlozeni[i][j] == 0) {
@@ -101,6 +104,7 @@ public class HelloApplication extends Application {
             }
             else {
                 System.out.println("Can be solved");
+                result.setText("Solved");
                 for(int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
                         int x = matrix[i][j];
@@ -120,6 +124,7 @@ public class HelloApplication extends Application {
     }
     //Tato metoda vymaze vsechny cisla z mrizky
     public void clearGrid() {
+        result.setText("OSS");
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
                 textField[i][j].setStyle("-fx-background-color: rgb(255,255,255)");
