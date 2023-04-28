@@ -15,7 +15,6 @@ package com.example.rpsudokusolver;
  */
 public class SudokuSolver {
     public int matrix [][];
-    static int cislo;
 
 
     // Konstruktor
@@ -24,6 +23,84 @@ public class SudokuSolver {
 
     }
 
+    public boolean checkValidRow (int Row) {
+        for (int i = 0; i < this.matrix.length; i++) {
+            for (int j = i + 1; j < this.matrix.length; j++) {
+                if (this.matrix[Row][i] != 0) {
+                    if (this.matrix[Row][i] == this.matrix[Row][j]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    public boolean checkAllRows () {
+        for (int i = 0; i < this.matrix.length; i++) {
+            if(!checkValidRow(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkValidColumn(int Column) {
+        for (int i = 0; i < this.matrix.length; i++) {
+            for (int j = i + 1; j < this.matrix.length; j++) {
+                if (this.matrix[i][Column] != 0) {
+                    if (this.matrix[i][Column] == this.matrix[j][Column]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkAllColumns() {
+        for (int i = 0; i < this.matrix.length; i++) {
+            if(!checkValidColumn(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkValidSquare(int Row, int Column) {
+        boolean[] checkNum = new boolean[10];
+        for (int i = Row; i < Row + 3; i++) {
+            for (int j = Column; j < Column + 3; j++) {
+                if (this.matrix[i][j]!=0) {
+                    int x = this.matrix[i][j];
+                    if (checkNum[x] == true) {
+                        return false;
+                    }
+                    else {
+                        checkNum[x] = true;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkAllSquares() {
+        for (int i = 0; i < this.matrix.length; i+=3) {
+            for (int j = 0; j < this.matrix.length; j+=3) {
+                if(!checkValidSquare(i, j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkSudoku() {
+        if(checkAllRows() && checkAllColumns() && checkAllSquares()) {
+            return true;
+        }
+        return false;
+    }
     /*
      * Funkce na vstupu dostane cislo radku a cislo,
      * ktere chceme do nej dosadit
@@ -124,15 +201,12 @@ public class SudokuSolver {
     /*
      * Funkce vygeneruje cele sudoku
      */
-    public void generate() {
-        System.out.println("jsem tu v generate");
-        if(fillCells()) {
-            cislo = 1;
+    public boolean generate() {
+        if(checkSudoku()) {
+                fillCells();
+                return true;
         }
-        else {
-            cislo = 0;
-            System.out.println("ne ty zmrde");
-        }
+        return false;
     }
 
     /*
