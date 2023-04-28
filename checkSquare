@@ -1,0 +1,33 @@
+public class Main {
+
+    public static void main(String[] args) {
+        int [][] arr = {
+                {1, 3, 7},
+                {0, 0, 4},
+                {5, 8, 9},
+        };
+        if (checkSquare(0, 0, arr)) {
+            System.out.printf("phd");
+        }
+        else {
+            System.out.println("nnnn");
+        }
+    }
+    public static boolean checkSquare(int Row, int Column, int[][] matrix) {
+        boolean[] checkNum = new boolean[10];
+        for (int i = 0; i < Row + 3; i++) {
+            for (int j = 0; j < Column + 3; j++) {
+                if (matrix[i][j]!=0) {
+                    int x = matrix[i][j];
+                    if (checkNum[x] == true) {
+                        return false;
+                    }
+                    else {
+                        checkNum[x] = true;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+}
