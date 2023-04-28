@@ -85,12 +85,9 @@ public class HelloApplication extends Application {
             //Pomoci intoveho pole a tridy SudokuSolver vygeneruji reseni sudoku
             //Pole pak prevedu na Stringy a nactu do textovych poli
             SudokuSolver ss = new SudokuSolver(matrix);
-            ss.generate();
 
-            int overeni = ss.cislo;
-            System.out.println(overeni);
-            if(ss.fillCells() == false) {
-
+            if(ss.generate() == false) {
+                System.out.println("Can not be solved");
                 for(int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
                         if(poleKUlozeni[i][j] == 0) {
