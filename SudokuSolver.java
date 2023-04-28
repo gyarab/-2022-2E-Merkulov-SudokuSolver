@@ -203,8 +203,10 @@ public class SudokuSolver {
      */
     public boolean generate() {
         if(checkSudoku()) {
-                fillCells();
-                return true;
+                if(fillCells()) {
+                    return true;
+                }
+                return false;
         }
         return false;
     }
